@@ -15,7 +15,7 @@
       "48": "icon.svg"
   },
   "permissions": [
-      "tabs",
-      "notifications"
+      "notifications",
+      "tabs"
   ]
 }
