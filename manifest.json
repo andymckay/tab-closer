@@ -13,5 +13,9 @@
   },
   "icons": {
       "48": "icon.svg"
-  }
+  },
+  "permissions": [
+      "tabs",
+      "notifications"
+  ]
 }
