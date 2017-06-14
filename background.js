@@ -2,25 +2,23 @@ function closeDuplicates() {
   let found = [];
   let closed = 0;
 
-  browser.tabs.query({})
-  .then((tabs) => {
+  chrome.tabs.query({}, (tabs) => {
     for (let tab of tabs) {
       if (found.includes(tab.url)) {
-        browser.tabs.remove(tab.id);
+        chrome.tabs.remove(tab.id);
         closed++;
       } else {
         found.push(tab.url);
       }
     }
-  })
-  .then(() => {
-    browser.notifications.create(
+    chrome.notifications.create(
       'remove-duplicates', {
         'message': `Number of tabs closed: ${closed}.`,
         'title': 'Close Duplicates',
-        'type': 'basic'
+        'type': 'basic',
+        'iconUrl': 'icon.svg'
     });
   });
 }
 
-browser.browserAction.onClicked.addListener(closeDuplicates);
+chrome.browserAction.onClicked.addListener(closeDuplicates);
