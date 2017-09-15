@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Close duplicate tabs",
-  "version": "0.1",
+  "version": "0.2",
   "browser_action": {
       "default_title": "Close duplicate tabs",
       "default_icon": {
@@ -15,6 +15,7 @@
       "48": "icon.svg"
   },
   "permissions": [
+      "cookies",
       "notifications",
       "tabs"
   ]

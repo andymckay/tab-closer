@@ -5,18 +5,21 @@ function closeDuplicates() {
   browser.tabs.query({})
   .then((tabs) => {
     for (let tab of tabs) {
-      if (found.includes(tab.url)) {
+      // Add in cookieStoreId so that if a URL is opened
+      // with different contextual identities, it doesn't get closed.
+      let key = `${tab.url}-${tab.cookieStoreId}`;
+      if (found.includes(key)) {
         browser.tabs.remove(tab.id);
         closed++;
       } else {
-        found.push(tab.url);
+        found.push(key);
       }
     }
   })
   .then(() => {
     browser.notifications.create(
       'remove-duplicates', {
-        'message': `Number of tabs closed: ${closed}.`,
+        'message': closed ? `Number of tabs closed: ${closed}.`: `No tabs closed.`,
         'title': 'Close Duplicates',
         'type': 'basic'
     });
