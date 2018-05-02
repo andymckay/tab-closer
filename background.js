@@ -1,5 +1,5 @@
 function closeDuplicates() {
-  let found = [];
+  let found = {};
   let closed = 0;
 
   browser.tabs.query({})
@@ -8,11 +8,16 @@ function closeDuplicates() {
       // Add in cookieStoreId so that if a URL is opened
       // with different contextual identities, it doesn't get closed.
       let key = `${tab.url}-${tab.cookieStoreId}`;
-      if (found.includes(key)) {
-        browser.tabs.remove(tab.id);
+      if (key in found) {
+        if (!tab.active) {
+          browser.tabs.remove(tab.id);
+        } else {
+          browser.tabs.remove(found[key]);
+          found[key] = tab.id;
+        }
         closed++;
       } else {
-        found.push(key);
+        found[key] = tab.id;
       }
     }
   })
