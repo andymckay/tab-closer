@@ -2,7 +2,10 @@ function closeDuplicates() {
   let found = [];
   let closed = 0;
 
-  browser.tabs.query({})
+  browser.tabs.query({
+    hidden: false,
+    currentWindow: true
+  });
   .then((tabs) => {
     for (let tab of tabs) {
       // Add in cookieStoreId so that if a URL is opened
